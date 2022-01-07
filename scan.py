@@ -8,7 +8,7 @@ import pandas as pd
 # Load IPs
 ip_list = []
 rapid_lookup_data = {}
-loc = input("Welcome to Rapid IP Lookup. Enter a filename or location to begin: ")
+loc = input("Enter a filename or location to begin: ")
 
 wb = xlrd.open_workbook(loc)
 sheet = wb.sheet_by_index(0)
@@ -19,7 +19,7 @@ for i in range(sheet.nrows):
     ip_list.append(ip.replace(" ",""))
 
 # Scrape data
-print("Scraping Scamalytics data...for free!")
+print("Retrieving Scamalytics data...for free!")
 x = 0
 with alive_bar(len(ip_list)) as bar:
 	for ip in ip_list:
