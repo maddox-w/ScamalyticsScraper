@@ -23,18 +23,21 @@ print("Retrieving Scamalytics data...for free!")
 x = 0
 with alive_bar(len(ip_list)) as bar:
 	for ip in ip_list:
-		scrape_info = []
-		page = requests.get(f'https://scamalytics.com/ip/{ip_list[x]}')
-		soup = BeautifulSoup(page.text, 'html.parser')
-		scraped_page = soup.find_all('td')
-		for td in scraped_page:
-			scrape_info.append(td.text)
-		if scrape_info[14] == "Open":
-			rapid_lookup_data[ip_list[x]] = scrape_info[2], scrape_info[5], scrape_info[21], scrape_info[22], scrape_info[23], scrape_info[24], scrape_info[25], scrape_info[26]
-		elif scrape_info[14] == "Closed":
-			rapid_lookup_data[ip_list[x]] = scrape_info[2], scrape_info[5], scrape_info[21], scrape_info[22], scrape_info[23], scrape_info[24], scrape_info[25], scrape_info[26]
-		else:
-			rapid_lookup_data[ip_list[x]] = scrape_info[2], scrape_info[5], scrape_info[15], scrape_info[16], scrape_info[17], scrape_info[18], scrape_info[19], scrape_info[20]
+		try:
+			scrape_info = []
+			page = requests.get(f'https://scamalytics.com/ip/{ip_list[x]}')
+			soup = BeautifulSoup(page.text, 'html.parser')
+			scraped_page = soup.find_all('td')
+			for td in scraped_page:
+				scrape_info.append(td.text)
+			if scrape_info[14] == "Open":
+				rapid_lookup_data[ip_list[x]] = scrape_info[2], scrape_info[5], scrape_info[21], scrape_info[22], scrape_info[23], scrape_info[24], scrape_info[25], scrape_info[26]
+			elif scrape_info[14] == "Closed":
+				rapid_lookup_data[ip_list[x]] = scrape_info[2], scrape_info[5], scrape_info[21], scrape_info[22], scrape_info[23], scrape_info[24], scrape_info[25], scrape_info[26]
+			else:
+				rapid_lookup_data[ip_list[x]] = scrape_info[2], scrape_info[5], scrape_info[15], scrape_info[16], scrape_info[17], scrape_info[18], scrape_info[19], scrape_info[20]
+		except:
+			rapid_lookup_data[ip_list[x]] = "Error", "Error", "Error", "Error", "Error", "Error", "Error", "Error"
 		bar()
 		x = x + 1
 
