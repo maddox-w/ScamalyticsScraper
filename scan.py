@@ -1,6 +1,7 @@
 from alive_progress import alive_bar
 import pandas as pd
 import re
+import xlrd
 
 # Load IPs
 rapid_lookup_data = {}
